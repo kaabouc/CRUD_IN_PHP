@@ -6,7 +6,7 @@
     $sql = " delete from `users` where `id` = '$user_id ' ";
     $res = $conn->query($sql);
    
-    header( 'localtion: view.php');
+    header( 'location:view.php');
 }
 
 ?>

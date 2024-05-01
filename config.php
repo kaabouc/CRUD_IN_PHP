@@ -1,6 +1,7 @@
 
 <?php 
     $servername="localhost" ;
+    // par defaut donnees par xampp
     $username="root";
     $password="";
     $dbname="crud_php";
