@@ -1,5 +1,5 @@
 <?php
-include_once 'config.php';
+include_once '../config.php';
 
 class User {
     private $idUtilisateur;
@@ -71,19 +71,42 @@ class User {
 
     // Les autres getters et setters pour les autres attributs
 
-    public function save() {
+    public function save($type) {
         global $conn;
-
+    
         $nomUtilisateur = $this->nomUtilisateur;
         $prenomUtilisateur = $this->prenomUtilisateur;
         $email = $this->email;
         $tel = $this->tel;
         $motDePasse = $this->motDePasse;
-
+    
+        // Insertion dans la table Utilisateur
         $sql = "INSERT INTO Utilisateur (NomUtilisateur, PrenomUtilisateur, Email, Tel, MotDePasse) 
                 VALUES ('$nomUtilisateur', '$prenomUtilisateur', '$email', '$tel', '$motDePasse')";
-        return $conn->query($sql);
-    }
+        $conn->query($sql);
+        
+        // Récupération de l'ID de l'utilisateur nouvellement inséré
+        $idUtilisateur = $conn->insert_id;
+    
+        // Insertion dans la table appropriée en fonction du type d'utilisateur
+        switch ($type) {
+            case 'client':
+                $sqlClient = "INSERT INTO Client (IdUtilisateur, EtatClient) VALUES ('$idUtilisateur', 'actif')";
+                $conn->query($sqlClient);
+                break;
+            case 'agent':
+                $sqlAgent = "INSERT INTO AgentRéparation (IdUtilisateur, EtatAgent) VALUES ('$idUtilisateur', 'actif')";
+                $conn->query($sqlAgent);
+                break;
+            case 'admin':
+                $sqlAdmin = "INSERT INTO Administrateur (IdUtilisateur, DateDernConnex) VALUES ('$idUtilisateur',NOW())";
+                $conn->query($sqlAdmin);
+                break;
+            default:
+                // Type d'utilisateur non reconnu
+                break;
+        }
+    }    
 
     public static function getUserById($idUtilisateur) {
         global $conn;
@@ -108,9 +131,23 @@ class User {
     
         $idUtilisateur = $this->idUtilisateur;
     
-        $sql = "DELETE FROM Utilisateur WHERE IdUtilisateur = '$idUtilisateur'";
-        return $conn->query($sql);
+        // Suppression dans la table Client
+        $sqlClient = "DELETE FROM Client WHERE IdUtilisateur = '$idUtilisateur'";
+        $conn->query($sqlClient);
+    
+        // Suppression dans la table AgentRéparation
+        $sqlAgent = "DELETE FROM AgentRéparation WHERE IdUtilisateur = '$idUtilisateur'";
+        $conn->query($sqlAgent);
+    
+        // Suppression dans la table Administrateur
+        $sqlAdmin = "DELETE FROM Administrateur WHERE IdUtilisateur = '$idUtilisateur'";
+        $conn->query($sqlAdmin);
+    
+        // Suppression dans la table Utilisateur
+        $sqlUser = "DELETE FROM Utilisateur WHERE IdUtilisateur = '$idUtilisateur'";
+        return $conn->query($sqlUser);
     }
+    
     
     
     public function update() {
@@ -165,5 +202,84 @@ class User {
 
         return $users;
     }
+
+    public static function login($email, $password) {
+        global $conn;
+    
+        // Vérification de l'utilisateur dans la table Utilisateur
+        $sql = "SELECT * FROM Utilisateur WHERE Email = '$email'";
+        $result = $conn->query($sql);
+    
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            // Vérification du mot de passe
+            if ($password === $user['MotDePasse']) {
+                // Vérification du type d'utilisateur
+                $idUtilisateur = $user['IdUtilisateur'];
+                $clientResult = $conn->query("SELECT * FROM Client WHERE IdUtilisateur = '$idUtilisateur'");
+                $adminResult = $conn->query("SELECT * FROM Administrateur WHERE IdUtilisateur = '$idUtilisateur'");
+                $agentResult = $conn->query("SELECT * FROM AgentRéparation WHERE IdUtilisateur = '$idUtilisateur'");
+    
+                if ($clientResult->num_rows > 0) {
+                    // Utilisateur est un client
+                    $conn->query("UPDATE Client SET EtatClient = 'actif' WHERE IdUtilisateur = '$idUtilisateur'");
+                    return array('type' => 'client', 'id' => $idUtilisateur);
+                } elseif ($adminResult->num_rows > 0) {
+                    // Utilisateur est un administrateur
+                    $conn->query("UPDATE Administrateur SET DateDernConnex = NOW() WHERE IdUtilisateur = '$idUtilisateur'");
+                    return array('type' => 'admin', 'id' => $idUtilisateur);
+                } elseif ($agentResult->num_rows > 0) {
+                    // Utilisateur est un agent de réparation
+                    $conn->query("UPDATE AgentRéparation SET EtatAgent = 'actif' WHERE IdUtilisateur = '$idUtilisateur'");
+                    return array('type' => 'agent', 'id' => $idUtilisateur);
+                } else {
+                    // Erreur: type d'utilisateur non reconnu
+                    return array('error' => 'Type d\'utilisateur non reconnu');
+                }
+            } else {
+                // Erreur: mot de passe incorrect
+                return array('error' => 'Mot de passe incorrect');
+            }
+        } else {
+            // Erreur: email non trouvé dans la base de données
+            return array('error' => 'Email non trouvé');
+        }
+    }
+    public  function isActive() {
+        global $conn;
+    
+        // Vérifier si l'utilisateur est un agent
+        $agentQuery = "SELECT * FROM AgentRéparation WHERE IdUtilisateur = '$this->idUtilisateur'";
+        $agentResult = $conn->query($agentQuery);
+    
+        if ($agentResult && $agentResult->num_rows > 0) {
+            // L'utilisateur est un agent, vérifier s'il est actif
+            // Par exemple, supposons qu'il existe un champ `EtatAgent` dans la table `AgentRéparation`
+            $agentRow = $agentResult->fetch_assoc();
+            $agentStatus = $agentRow['EtatAgent'];
+            return $agentStatus === 'actif';
+        } else {
+            // L'utilisateur n'est pas un agent, vérifier s'il est client
+            $clientQuery = "SELECT * FROM Client WHERE IdUtilisateur = '$this->idUtilisateur'";
+            $clientResult = $conn->query($clientQuery);
+    
+            if ($clientResult && $clientResult->num_rows > 0) {
+                // L'utilisateur est un client, vérifier s'il est actif
+                // Par exemple, supposons qu'il existe un champ `EtatClient` dans la table `Client`
+                $clientRow = $clientResult->fetch_assoc();
+                $clientStatus = $clientRow['EtatClient'];
+                return $clientStatus === 'actif';
+            } else {
+                // L'utilisateur n'est ni un agent ni un client
+                // Vous pouvez ajouter d'autres vérifications si nécessaire
+                return false;
+            }
+        }
+    }
+    
+    
 }
+
+    
+
 ?>

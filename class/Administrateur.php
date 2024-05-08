@@ -4,6 +4,7 @@ include_once 'config.php';
 class Administrateur {
     private $idAdministrateur;
     private $idUtilisateur;
+    private $dateDernConnex; 
 
     public function __construct($idUtilisateur) {
         $this->idUtilisateur = $idUtilisateur;
@@ -15,6 +16,13 @@ class Administrateur {
 
     public function setIdAdministrateur($idAdministrateur) {
         $this->idAdministrateur = $idAdministrateur;
+    }
+    public function getDateDernConnex() {
+        return $this->dateDernConnex;
+    }
+
+    public function setDateDernConnex($dateDernConnex) {
+        $this->dateDernConnex = $dateDernConnex;
     }
 
     public function getIdUtilisateur() {

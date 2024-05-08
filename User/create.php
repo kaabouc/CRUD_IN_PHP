@@ -1,5 +1,5 @@
 <?php
-include_once 'config.php';
+include_once '../config.php';
 include_once 'User.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -9,8 +9,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tel = $_POST['tel'];
     $motDePasse = $_POST['motDePasse'];
 
+    $type = $_POST['type']; // Récupération du type d'utilisateur sélectionné
     $user = new User($nom, $prenom, $email, $tel, $motDePasse);
-    $user->save();
+    $user->save($type);
+
     header("Location: index.php");
     exit();
 }
@@ -32,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="nom">Nom:</label>
                 <input type="text" class="form-control" id="nom" name="nom" required>
             </div>
-            <div class="form-group">
+            <div class="form-group"> 
                 <label for="prenom">Prénom:</label>
                 <input type="text" class="form-control" id="prenom" name="prenom" required>
             </div>
@@ -45,9 +47,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="tel" class="form-control" id="tel" name="tel">
             </div>
             <div class="form-group">
+        <label for="type">Type d'utilisateur:</label>
+        <select class="form-control" id="type" name="type" required>
+            <option value="client">Client</option>
+            <option value="agent">Agent de Réparation</option>
+            <option value="admin">Administrateur</option>
+        </select>
+    </div>
+            <div class="form-group">
                 <label for="password">Mot de passe:</label>
                 <input type="password" class="form-control" id="password" name="motDePasse" required>
             </div>
+            
             <button type="submit" class="btn btn-primary">Créer</button>
         </form>
     </div>

@@ -1,5 +1,5 @@
 <?php
-include_once 'config.php';
+include_once '../config.php';
 
 class Client {
     private $idClient;
@@ -109,4 +109,19 @@ class Client {
         return $clients;
     }
 }
+
+function getClientNameById($idClient) {
+    global $conn;
+    
+    $sql = "SELECT NomClient FROM Client WHERE IdClient = '$idClient'";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['NomClient'];
+    } else {
+        return "Client inconnu"; // Message par défaut si le client n'est pas trouvé
+    }
+}
+
 ?>

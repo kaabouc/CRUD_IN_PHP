@@ -1,5 +1,5 @@
 <?php
-include_once 'config.php';
+include_once '../config.php';
 include_once 'User.php';
 
 if(isset($_GET['id'])) {

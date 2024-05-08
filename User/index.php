@@ -25,12 +25,13 @@
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Téléphone</th>
+                    <th>Statut</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                include_once 'config.php';
+                include_once '../config.php';
                 include_once 'User.php';
 
                 // Si une recherche est effectuée, récupérer les utilisateurs correspondants
@@ -44,13 +45,22 @@
 
                 foreach ($users as $user) {
                     echo "<tr>";
-                    echo "<td>" . $user->getIdUtilisateur() . "</td>";
+                    echo "<td > ". $user->getIdUtilisateur() . "</td>";
                     echo "<td>" . $user->getNomUtilisateur() . "</td>";
                     echo "<td>" . $user->getPrenomUtilisateur() . "</td>";
                     echo "<td>" . $user->getEmail() . "</td>";
                     echo "<td>" . $user->getTel() . "</td>";
-                    echo "<td><a href='update.php?id=" . $user->getIdUtilisateur() . "' class='btn btn-primary'>Modifier</a>
-                            <a href='delete.php?id=" . $user->getIdUtilisateur() . "' class='btn btn-danger'>Supprimer</a></td>";
+
+                    // Vérifier si l'utilisateur est actif et afficher une icône ou le mot "actif"
+                    $isActive = $user->isActive(); // Supposons que vous ayez une méthode isActive() dans la classe User
+                    echo "<td>" . ($isActive ? "<span class='badge badge-success'>Actif</span>" : "<span class='badge badge-secondary'>Inactif</span>") . "</td>";
+
+                    echo "<td>
+                            <a href='update.php?id=" . $user->getIdUtilisateur() . "' class='btn btn-primary'>Modifier</a>
+                            <a href='../appareil/index.php?id=" . $user->getIdUtilisateur() . "' class='btn btn-info'>voir</a>
+                    
+                            <a href='delete.php?id=" . $user->getIdUtilisateur() . "' class='btn btn-danger' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer cet utilisateur ?\")'>Supprimer</a>
+                          </td>";
                     echo "</tr>";
                 }
                 ?>

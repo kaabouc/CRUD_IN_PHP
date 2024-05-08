@@ -1,5 +1,5 @@
 <?php
-include_once 'config.php';
+include_once '../config.php';
 include_once 'User.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
