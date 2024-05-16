@@ -35,11 +35,11 @@ class Appareil {
 
     public function save() {
         global $conn;
-
+        
         $idClient = $this->idClient;
         $typeAppareil = $this->typeAppareil;
         $modele = $this->modele;
-
+        
         $sql = "INSERT INTO Appareil (IdClient, TypeAppareil, Modèle) VALUES ('$idClient', '$typeAppareil', '$modele')";
         return $conn->query($sql);
     }

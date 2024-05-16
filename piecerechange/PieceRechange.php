@@ -60,7 +60,7 @@ class PieceRechange {
         $libPiece = $this->libPiece;
         $qteStock = $this->qteStock;
         $seuilMin = $this->seuilMin;
-        $seuilMax = $this->seuilMax;
+        $seuilMax = $this->seuilMax;    
 
         $sql = "INSERT INTO PieceRechange (LibPiece, QteStock, SeuilMin, SeuilMax) VALUES ('$libPiece', $qteStock, $seuilMin, $seuilMax)";
         return $conn->query($sql);

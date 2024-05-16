@@ -1,91 +1,65 @@
-
-
-<?php
-include_once 'config.php';
-include_once 'piècerechange.php';
-
-$piècerechanges = piecerechange::getAllPiecesRechange();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des pieces</title>
+    <title>Liste des pièces de rechange</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+    <div class="container">
+        <h2>Liste des pièces de rechange</h2>
+        <a href="create.php" class="btn btn-primary mb-3">Ajouter une pièce</a>
 
-    <a href="indexPiec.php">Gestion des pieces</a>
-    <a href="indexRep.php">Gestion des reparation</a>
-    <a href="indexReg.php"> Reglement</a>
-    <a href="indexDel.php"> Details Reparation</a>
-    <a href="indexDC.php">Details de commande </a>
-    <a href="indexAP.php"> Appareils</a>
-    <br>
-    <br>
-    <h3>Liste des pieces</h3>
-    <br>
-     <!-- Formulaire de recherche -->
-<form action="rechercherP.php" method="GET">
-    <input type="text" name="term" placeholder="Rechercher une pièce" >
-    <input type="submit" value="Chercher">
-</form>
-    
-    <br>
-    <br>
-    <table border="1">
-        <tr>
-            
-            <th>Lib Pièce</th>
-            <th>Qte Stock</th>
-            <th>Seuil Min</th>
-            <th> Seuil Max</th>
-            
-            <th>Actions</th>
-        </tr>
-       
+        <!-- Barre de recherche -->
+        <form class="form-inline mb-3" method="GET">
+            <input class="form-control mr-sm-2" type="text" name="search" placeholder="Rechercher...">
+            <button class="btn btn-outline-success" type="submit">Rechercher</button>
+        </form>
 
-        <?php  foreach ($piècerechanges as $piècerechange) { ?>
-        <tr>
-        
-            <td><?php echo $piècerechange-> getLibPiece(); ?></td>
-            <td><?php echo $piècerechange->getQteStock(); ?></td>
-            <td><?php echo $piècerechange->getSeuilMin(); ?></td>
-            <td><?php echo $piècerechange->getSeuilMax(); ?></td>
-          
-           
-            <td>
-                <a href="updateP.php?id=<?php echo $piècerechange-> getIdPiece(); ?>">Modifier</a> 
-                <a href="deleteP1.php?id=<?php echo $piècerechange-> getIdPiece(); ?>">Supprimer</a>
-            </td>
-        </tr>
-        <?php } ?>
-    </table><br>
-    <br>
- 
-    <br><br>
-    <a href="createP1.php">Ajouter </a>
-    <br>
-    <br>
-    <a href="deconnection.php">Se deconnecter</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Libellé</th>
+                    <th>Quantité en stock</th>
+                    <th>Seuil minimum</th>
+                    <th>Seuil maximum</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                            include_once '../config.php';
+
+                include_once 'PieceRechange.php';
+
+
+                // Si une recherche est effectuée, récupérer les pièces correspondantes
+                if(isset($_GET['search'])) {
+                    $searchTerm = $_GET['search'];
+                    $pieces = PieceRechange::searchPieces($searchTerm);
+                } else {
+                    // Sinon, récupérer toutes les pièces
+                    $pieces = PieceRechange::getAllPiecesRechange();
+                }
+
+                foreach ($pieces as $piece) {
+                    echo "<tr>";
+                    echo "<td>" . $piece->getIdPiece() . "</td>";
+                    echo "<td>" . $piece->getLibPiece() . "</td>";
+                    echo "<td>" . $piece->getQteStock() . "</td>";
+                    echo "<td>" . $piece->getSeuilMin() . "</td>";
+                    echo "<td>" . $piece->getSeuilMax() . "</td>";
+                    echo "<td>
+                            <a href='update_piece.php?id=" . $piece->getIdPiece() . "' class='btn btn-primary'>Modifier</a>
+                            <a href='delete_piece.php?id=" . $piece->getIdPiece() . "' class='btn btn-danger' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer cette pièce ?\")'>Supprimer</a>
+                          </td>";
+                    echo "</tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 

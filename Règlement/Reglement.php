@@ -102,5 +102,20 @@ class Reglement {
 
         return $reglements;
     }
+    public static function getReglementById($idReglement) {
+        global $conn;
+
+        $sql = "SELECT * FROM Règlement WHERE IdRèglement = '$idReglement'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $reglement = new Reglement($row['Etat'], $row['DateRèglement']);
+            $reglement->setIdReglement($row['IdRèglement']);
+            return $reglement;
+        }
+
+        return null;
+    }
 }
 ?>

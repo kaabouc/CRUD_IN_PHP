@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h2>Liste des appareils</h2>
-        <a href="create.php?user=<?php echo $_GET['id']; ?>" class="btn btn-primary mb-3">Ajouter un appareil</a>
+        <a href="create.php" class="btn btn-primary mb-3">Ajouter un appareil</a>
 
         <!-- Barre de recherche -->
         <form class="form-inline mb-3" method="GET">
@@ -55,7 +55,7 @@
                     echo "<td>" . $appareil->getTypeAppareil() . "</td>";
                     echo "<td>" . $appareil->getModele() . "</td>";
                     echo "<td><a href='update.php?idAppareil=" . $appareil->getIdAppareil() . "' class='btn btn-primary'>Modifier</a>
-                            <a href='delete.php?idAppareil=" . $appareil->getIdAppareil() . "' class='btn btn-danger'>Supprimer</a></td>";
+                            <a href='delete.php?id=" . $appareil->getIdAppareil() . "' class='btn btn-danger'>Supprimer</a></td>";
                     echo "</tr>";
                 }
                 ?>

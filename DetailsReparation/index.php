@@ -1,84 +1,67 @@
-
-
-<?php
-include_once 'config.php';
-include_once 'piècerechange.php';
-
-$piècerechanges = DetailsReparation::getAllDetailsReparations();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des pieces</title>
+    <title>Liste des détails de réparation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+    <div class="container">
+        <h2>Liste des détails de réparation</h2>
+        <a href="create.php" class="btn btn-primary mb-3">Ajouter un détail de réparation</a>
 
-    
-    <h3>Liste des details reparation </h3>
-    <br>
-     <!-- Formulaire de recherche -->
-<form action="rechercherP.php" method="GET">
-    <input type="text" name="term" placeholder="Rechercher une pièce" >
-    <input type="submit" value="Chercher">
-</form>
-    
-    <br>
-    <br>
-    <table border="1">
-        <tr>
-            
-            <th>Lib Pièce</th>
-            <th>Qte Stock</th>
-            <th>Seuil Min</th>
-            <th> Seuil Max</th>
-            
-            <th>Actions</th>
-        </tr>
-       
+        <!-- Barre de recherche -->
+        <form class="form-inline mb-3" method="GET">
+            <input class="form-control mr-sm-2" type="text" name="search" placeholder="Rechercher...">
+            <button class="btn btn-outline-success" type="submit">Rechercher</button>
+        </form>
 
-        <?php  foreach ($piècerechanges as $piècerechange) { ?>
-        <tr>
-        
-            <td><?php echo $piècerechange-> getLibPiece(); ?></td>
-            <td><?php echo $piècerechange->getQteStock(); ?></td>
-            <td><?php echo $piècerechange->getSeuilMin(); ?></td>
-            <td><?php echo $piècerechange->getSeuilMax(); ?></td>
-          
-           
-            <td>
-                <a href="updateP.php?id=<?php echo $piècerechange-> getIdPiece(); ?>">Modifier</a> 
-                <a href="deleteP1.php?id=<?php echo $piècerechange-> getIdPiece(); ?>">Supprimer</a>
-            </td>
-        </tr>
-        <?php } ?>
-    </table><br>
-    <br>
- 
-    <br><br>
-    <a href="createP1.php">Ajouter </a>
-    <br>
-    <br>
-    <a href="deconnection.php">Se deconnecter</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ID Réparation</th>
+                    <th>ID Règlement</th>
+                    <th>ID Appareil</th>
+                    <th>État Sous Réparation</th>
+                    <th>Description</th>
+                    <th>Coût</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                include_once '../config.php';
+                include_once 'DetailsReparation.php';
+
+                // Si une recherche est effectuée, récupérer les détails de réparation correspondants
+                if (isset($_GET['search'])) {
+                    $searchTerm = $_GET['search'];
+                    $detailsReparations = DetailsReparation::searchDetailsReparations($searchTerm);
+                } else {
+                    // Sinon, récupérer tous les détails de réparation
+                    $detailsReparations = DetailsReparation::getAllDetailsReparations();
+                }
+
+                foreach ($detailsReparations as $detailsReparation) {
+                    echo "<tr>";
+                    echo "<td>" . $detailsReparation->getIdDetailsReparation() . "</td>";
+                    echo "<td>" . $detailsReparation->getIdReparation() . "</td>";
+                    echo "<td>" . $detailsReparation->getIdReglement() . "</td>";
+                    echo "<td>" . $detailsReparation->getIdAppareil() . "</td>";
+                    echo "<td>" . $detailsReparation->getEtatSousReparation() . "</td>";
+                    echo "<td>" . $detailsReparation->getDescription() . "</td>";
+                    echo "<td>" . $detailsReparation->getCout() . "</td>";
+                    echo "<td>
+                            <a href='update.php?id=" . $detailsReparation->getIdDetailsReparation() . "' class='btn btn-primary'>Modifier</a>
+                            <a href='delete.php?id=" . $detailsReparation->getIdDetailsReparation() . "' class='btn btn-danger' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer ce détail de réparation ?\")'>Supprimer</a>
+                          </td>";
+                    echo "</tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 

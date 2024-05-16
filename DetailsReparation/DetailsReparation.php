@@ -154,6 +154,24 @@ class DetailsReparation {
         }
 
         return $detailsReparations;
+ 
     }
+    public static function getDetailsReparationById($idDetailsReparation) {
+        global $conn;
+    
+        $sql = "SELECT * FROM DetailsReparation WHERE IdDetailsReparation = '$idDetailsReparation'";
+        $result = $conn->query($sql);
+    
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $detailsReparation = new DetailsReparation($row['IdReparation'], $row['IdReglement'], $row['IdAppareil'], 
+                                                        $row['EtatSousRéparation'], $row['Description'], $row['Coût']);
+            $detailsReparation->setIdDetailsReparation($row['IdDetailsReparation']);
+            return $detailsReparation;
+        }
+    
+        return null;
+    }
+    
 }
 ?>
