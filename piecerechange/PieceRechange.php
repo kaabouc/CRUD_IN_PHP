@@ -125,7 +125,7 @@ class PieceRechange {
     public static function searchPieces($searchTerm) {
         global $conn;
 
-        $sql = "SELECT * FROM PieceRechange WHERE LibPiece LIKE '%$searchTerm%'";
+        $sql = "SELECT * FROM PieceRechange WHERE LibPiece LIKE '%$searchTerm%' or  QteStock LIKE '%$searchTerm%' ";
         $result = $conn->query($sql);
 
         $pieces = array();

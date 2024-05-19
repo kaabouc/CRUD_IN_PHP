@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../pages/index.php" class="brand-link">
+    <a href="" class="brand-link">
       <img src="../../image/infraction.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">G_INFRACTION</span>
     </a>
@@ -21,46 +21,57 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="../voiture/index.php" class="nav-link">
+            <a href="../../User/index.php" class="nav-link">
             <i class="fas fa-car"></i>
               <p>
-                Voiture
+                Utilisateurs
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="../infraction/index.php" class="nav-link">
+            <a href="../../Appareil/index.php" class="nav-link">
             <i class="fas fa-exclamation-triangle"></i>
               <p>
-                infraction 
+                Appareil 
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="../assurances/index.php" class="nav-link">
+            <a href="../../Reparations/index.php" class="nav-link">
             <i class="fas fa-shield-alt"></i>
               <p>
-                assurance
+                Reparations
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="../vignette/index.php" class="nav-link">
+            <a href="../../piecerechange/index.php" class="nav-link">
              <i class="fas fa-sticky-note"></i>
               <p>
-                vignette 
+                Piece de rechange  
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>
-        
           <li class="nav-item">
-            <a href="../information/index.php" class="nav-link">
-              <i class="nav-icon far fa-circle text-info"></i>
-              <p>Informational</p>
+            <a href="../../Reglement/index.php" class="nav-link">
+             <i class="fas fa-sticky-note"></i>
+              <p>
+                Reglement 
+                <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../../DetailsCommande/index.php" class="nav-link">
+             <i class="fas fa-sticky-note"></i>
+              <p>
+                Commande  Piece
+                <span class="right badge badge-danger">New</span>
+              </p>
             </a>
           </li>
         </ul>

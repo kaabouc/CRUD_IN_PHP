@@ -1,3 +1,13 @@
+<?php
+ // Inclure le fichier de configuration et la classe Client
+ include_once '../config.php';
+ include_once '../class/AgentRéparation.php';
+
+ // Récupérer tous les clients depuis la base de données
+ $agents = AgentRéparation::getAllAgentsRéparation();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +22,15 @@
         <form method="post" action="">
             <div class="form-group">
                 <label for="idAgentReparation">ID Agent Réparation:</label>
-                <input type="text" class="form-control" id="idAgentReparation" name="idAgentReparation" required>
+                <select class="form-control" id="idAgentReparation" name="idAgentReparation" required>
+                    <?php
+                   
+                    // Afficher chaque client dans la liste déroulante
+                    foreach ($agents as $agent) {
+                        echo "<option value='" . $agent->getIdAgentRéparation() . "'>" . $agent->getIdAgentRéparation() . "</option>";
+                    }
+                    ?>
+                </select>  
             </div>
             <div class="form-group">
                 <label for="description">Description:</label>
