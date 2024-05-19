@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GINFR</title>
-  <link rel="icon"  href="../../image/route1.png">
+  <link rel="icon"  href="../img/port.jpg">
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
@@ -34,11 +34,17 @@
 <div class="wrapper">
   
 <?php 
+session_start(); // Démarrer la session
 
+// Vérifier si l'utilisateur est déjà connecté, le rediriger vers la page d'accueil
+if (isset($_SESSION['admin'])) {
+    header("Location: Admin/pages/index.php");
+    exit;
+}
 
 include('navbar.php');
 
-    include('sidebar.php') ;
+    include('sidebar_user.php') ;
     // Activer l'affichage des erreurs
  ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);

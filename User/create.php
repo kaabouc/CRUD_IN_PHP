@@ -1,33 +1,11 @@
-<?php
-include_once '../config.php';
-include_once 'User.php';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $email = $_POST['email'];
-    $tel = $_POST['tel'];
-    $motDePasse = $_POST['motDePasse'];
-
-    $type = $_POST['type']; // Récupération du type d'utilisateur sélectionné
-    $user = new User($nom, $prenom, $email, $tel, $motDePasse);
-    $user->save($type);
-
-    header("Location: index.php");
-    exit();
-}
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Créer un Utilisateur</title>
-    <!-- Intégration de Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container mt-5">
+<?php include('../admin/includes/header_user.php') ?>
+<div class="content-wrapper">
+<section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+              
+             <div class="container">
         <h2>Créer un Utilisateur</h2>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="form-group">
@@ -62,5 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" class="btn btn-primary">Créer</button>
         </form>
     </div>
-</body>
-</html>
+     </div>
+     </div>
+</section>
+</div>
+    <?php include('../admin/includes/footer_user.php') ?>

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Détails de Commande</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container">
+<?php include('../admin/includes/header_user.php') ?>
+<div class="content-wrapper">
+<section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+              
+             <div class="container">
         <h2>Liste des Détails de Commande</h2>
         <a href="create.php" class="btn btn-primary mb-3">Ajouter un détail de commande</a>
 
@@ -53,6 +52,9 @@
                 ?>
             </tbody>
         </table>
-    </div>
-</body>
-</html>
+        </div>
+    
+     </div>
+</section>
+</div>
+    <?php include('../admin/includes/footer_user.php') ?>

@@ -45,11 +45,4 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Fonction de gestion d'erreur personnalisée
-function customErrorHandler($errno, $errstr, $errfile, $errline) {
-    $errorMessage = "Erreur : " . $errstr;
-    echo "<script>alert('$errorMessage');</script>";
-}
-
-// Définir la fonction de gestion d'erreur personnalisée comme gestionnaire d'erreurs
-set_error_handler("customErrorHandler");
 ?>

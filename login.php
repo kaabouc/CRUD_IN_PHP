@@ -2,6 +2,10 @@
 include_once 'config.php';
 include_once 'User/User.php';
 session_start();
+    // if (!isset($_SESSION['idLogin'])) {
+    //   header("Location: login.php");
+    //   exit;
+    // }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];

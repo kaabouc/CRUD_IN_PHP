@@ -24,16 +24,14 @@ $reparations = Reparation::getAllReparations();
 $pieces = PieceRechange::getAllPiecesRechange();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Créer un Détail de Commande</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container mt-5">
+<?php include('../admin/includes/header_user.php') ?>
+<div class="content-wrapper">
+<section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+              
+             <div class="container">
         <h2>Créer un Détail de Commande</h2>
         <?php if (isset($error)) { echo "<div class='alert alert-danger'>$error</div>"; } ?>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -59,6 +57,9 @@ $pieces = PieceRechange::getAllPiecesRechange();
             </div>
             <button type="submit" class="btn btn-primary">Créer</button>
         </form>
-    </div>
-</body>
-</html>
+        </div>
+     </div>
+   
+</section>
+</div>
+    <?php include('../admin/includes/footer_user.php') ?>
