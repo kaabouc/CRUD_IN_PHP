@@ -1,12 +1,6 @@
 <?php
 include_once '../config.php';
 include_once 'User.php';
-session_start();
-
-if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
-    header("Location: ../login.php");
-    exit;
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];

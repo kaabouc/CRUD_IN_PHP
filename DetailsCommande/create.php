@@ -3,7 +3,13 @@ include_once '../config.php';
 include_once 'DetailsCommande.php';
 include_once '../reparations/Reparation.php';
 include_once '../piecerechange/PieceRechange.php';
+session_start();
 
+if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
+    header("Location: ../login.php");
+    exit;
+}
+$userType = $_SESSION['userType'];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idReparation = $_POST['idReparation'];
     $idPiece = $_POST['idPiece'];

@@ -1,12 +1,13 @@
 <?php
 include_once '../config.php';
-include_once 'User.php';
+include_once '../User/User.php';
 session_start();
 
 if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
     header("Location: ../login.php");
     exit;
 }
+$userType = $_SESSION['userType'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
@@ -44,7 +45,7 @@ if(isset($_GET['id'])) {
         <div class="row">
               
              <div class="container">
-        <h2>Modifier un Utilisateur</h2>
+        <h2>Modifier un Admin</h2>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <input type="hidden" name="id" value="<?php echo $user->getIdUtilisateur(); ?>">
             <div class="form-group">

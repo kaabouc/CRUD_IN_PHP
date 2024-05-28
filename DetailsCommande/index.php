@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<?php include('../admin/includes/header_user.php') ?>
+<?php 
+session_start();
+
+if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
+    header("Location: ../login.php");
+    exit;
+}
+$userType = $_SESSION['userType'];
+include('../admin/includes/header_user.php') ?>
 <div class="content-wrapper">
 <section class="content">
       <div class="container-fluid">

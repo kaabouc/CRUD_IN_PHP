@@ -1,8 +1,9 @@
 <?php 
       session_start();
-      if (!isset($_SESSION['idLogin'])) {
-        header("Location: ../../login.php");
-        exit;
+
+      if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
+          header("Location: ../../login.php");
+          exit;
       }
 include "../../config.php";
   //  $sql = "select count(*) as total2  from voiture";
@@ -33,7 +34,7 @@ include "../../config.php";
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">acuel</li>
+              <li class="breadcrumb-item active">acceuil</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -50,18 +51,14 @@ include "../../config.php";
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3><?php 
-                 if($infract->num_rows>0){
-                  while ($row=$infract->fetch_assoc()){
-                   echo $row["total1"]; }}
-                    ?> </h3>
+                <h3>Client </h3>
  
-                <p>Infractions</p>
+               
               </div>
               <div class="icon">
               <i class="fas fa-exclamation-triangle"></i>
               </div>
-              <a href="../infraction/index.php" class="small-box-footer">EN SAVOIR PLUS <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="../../Client/index.php" class="small-box-footer">EN SAVOIR PLUS <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -69,20 +66,14 @@ include "../../config.php";
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>
-                <?php 
-                 if($assur->num_rows>0){
-                  while ($row=$assur->fetch_assoc()){
-                   echo $row["total3"]; }}
-                    ?>    
-                <sup style="font-size: 20px"></sup></h3>
+                <h3> Agent reparation</h3>
 
-                <p>Assurances</p>
+                
               </div>
               <div class="icon">
               <i class="fas fa-shield-alt"></i>
               </div>
-              <a href="../assurances/index.php" class="small-box-footer">EN SAVOIR PLUS <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="../../agent/index.php" class="small-box-footer">EN SAVOIR PLUS <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -90,18 +81,13 @@ include "../../config.php";
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>  <?php 
-                 if($voi->num_rows>0){
-                  while ($row=$voi->fetch_assoc()){
-                   echo $row["total2"]; }}
-                    ?> </h3>
+                <h3>  Appareil</h3>
 
-                <p>Voitures </p>
               </div>
               <div class="icon">
                <i class="fas fa-car"></i>
               </div>
-              <a href="../voiture/index.php" class="small-box-footer">EN SAVOIR PLUS <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="../../Appareil/index.php" class="small-box-footer">EN SAVOIR PLUS <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -109,19 +95,14 @@ include "../../config.php";
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3><?php 
-                 if($vignet->num_rows>0){
-                  while ($row=$vignet->fetch_assoc()){
-                   echo $row["total4"]; }}
-                    ?> </h3>
+                <h3>Reparations</h3>
 
-                <p>Vignettes</p>
               </div>
               <div class="icon">
               <i class="fas fa-sticky-note"></i>
 
               </div>
-              <a href="../vignette/index.php" class="small-box-footer">EN SAVOIR PLUS <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="../../Reparations/index.php" class="small-box-footer">EN SAVOIR PLUS <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
     

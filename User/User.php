@@ -110,10 +110,10 @@ class User {
 
     public static function getUserById($idUtilisateur) {
         global $conn;
-
+    
         $sql = "SELECT * FROM Utilisateur WHERE IdUtilisateur = '$idUtilisateur'";
         $result = $conn->query($sql);
-
+    
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $user = new User($row['NomUtilisateur'], $row['PrenomUtilisateur'], $row['Email'], $row['Tel'], $row['MotDePasse']);
@@ -275,6 +275,65 @@ class User {
                 return false;
             }
         }
+    }
+
+    public static function getAllClients() {
+        global $conn;
+
+        $sql = "SELECT u.* FROM Utilisateur u 
+                INNER JOIN Client c ON u.IdUtilisateur = c.IdUtilisateur";
+        $result = $conn->query($sql);
+
+        $clients = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $client = new User($row['NomUtilisateur'], $row['PrenomUtilisateur'], $row['Email'], $row['Tel'], $row['MotDePasse']);
+                $client->setIdUtilisateur($row['IdUtilisateur']);
+                $clients[] = $client;
+            }
+        }
+
+        return $clients;
+    }
+
+    // Récupération de tous les agents de réparation
+    public static function getAllAgents() {
+        global $conn;
+
+        $sql = "SELECT u.* FROM Utilisateur u 
+                INNER JOIN AgentRéparation a ON u.IdUtilisateur = a.IdUtilisateur";
+        $result = $conn->query($sql);
+
+        $agents = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $agent = new User($row['NomUtilisateur'], $row['PrenomUtilisateur'], $row['Email'], $row['Tel'], $row['MotDePasse']);
+                $agent->setIdUtilisateur($row['IdUtilisateur']);
+                $agents[] = $agent;
+            }
+        }
+
+        return $agents;
+    }
+
+    // Récupération de tous les administrateurs
+    public static function getAllAdmins() {
+        global $conn;
+
+        $sql = "SELECT u.* FROM Utilisateur u 
+                INNER JOIN Administrateur a ON u.IdUtilisateur = a.IdUtilisateur";
+        $result = $conn->query($sql);
+
+        $admins = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $admin = new User($row['NomUtilisateur'], $row['PrenomUtilisateur'], $row['Email'], $row['Tel'], $row['MotDePasse']);
+                $admin->setIdUtilisateur($row['IdUtilisateur']);
+                $admins[] = $admin;
+            }
+        }
+
+        return $admins;
     }
     
     

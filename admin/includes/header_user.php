@@ -34,11 +34,11 @@
 <div class="wrapper">
   
 <?php 
-session_start(); // Démarrer la session
+ // Démarrer la session
 
 // Vérifier si l'utilisateur est déjà connecté, le rediriger vers la page d'accueil
-if (isset($_SESSION['admin'])) {
-    header("Location: Admin/pages/index.php");
+if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
+    header("Location: ../../login.php");
     exit;
 }
 

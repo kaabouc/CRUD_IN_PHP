@@ -1,4 +1,13 @@
-<?php include('../admin/includes/header_user.php') ?>
+<?php
+session_start();
+
+if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
+    header("Location: ../login.php");
+    exit;
+}
+$userType = $_SESSION['userType'];
+
+include('../admin/includes/header_user.php') ?>
 <div class="content-wrapper">
 <section class="content">
       <div class="container-fluid">
@@ -30,7 +39,7 @@
                 include_once 'Appareil.php';
 
                 // Récupérer l'ID de l'utilisateur à partir de l'URL
-                $idUtilisateur = isset($_GET['idUtilisateur']) ? $_GET['idUtilisateur'] : null;
+                $idUtilisateur = isset($_GET['id']) ? $_GET['id'] : null;
 
                 // Si une recherche est effectuée, récupérer les appareils correspondants
                 if(isset($_GET['search'])) {

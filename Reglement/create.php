@@ -2,6 +2,13 @@
 include_once '../config.php';
 include_once 'Reglement.php';
 include_once '../reparations/Reparation.php';
+session_start();
+
+if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
+    header("Location: ../login.php");
+    exit;
+}
+$userType = $_SESSION['userType'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idReparation = $_POST['idReparation'];

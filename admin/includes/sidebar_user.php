@@ -30,6 +30,33 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="../../Client/index.php" class="nav-link">
+            <i class="fas fa-car"></i>
+              <p>
+                Client
+                <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../../agent/index.php" class="nav-link">
+            <i class="fas fa-car"></i>
+              <p>
+                Agent Reparations
+                <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../../admine/index.php" class="nav-link">
+            <i class="fas fa-car"></i>
+              <p>
+                  Admin
+                <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="../../Appareil/index.php" class="nav-link">
             <i class="fas fa-exclamation-triangle"></i>
               <p>

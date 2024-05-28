@@ -1,16 +1,6 @@
 <?php 
 
-include('../admin/includes/header_user.php');
-session_start();
-
-if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
-    header("Location: ../login.php");
-    exit;
-}
-
-$userType = $_SESSION['userType'];
-
-?>
+include('../../admin/includes/header_user.php') ?>
 <div class="content-wrapper">
 <section class="content">
       <div class="container-fluid">
@@ -18,7 +8,7 @@ $userType = $_SESSION['userType'];
         <div class="row">
               
              <div class="container">
-        <h2>Liste des utilisateurs</h2>
+        <h2>Liste des Clients</h2>
         <a href="create.php" class="btn btn-primary mb-3">Ajouter un utilisateur</a>
 
         <!-- Barre de recherche -->
@@ -30,7 +20,8 @@ $userType = $_SESSION['userType'];
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>ID client</th>
+                    <th>ID User</th>
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Email</th>
@@ -41,13 +32,13 @@ $userType = $_SESSION['userType'];
             </thead>
             <tbody>
                 <?php
-                include_once '../config.php';
-                include_once 'User.php';
+                include_once '../../config.php';
+                include_once '../Client.php';
 
                 // Si une recherche est effectuée, récupérer les utilisateurs correspondants
                 if(isset($_GET['search'])) {
                     $searchTerm = $_GET['search'];
-                    $users = User::searchUsers($searchTerm);
+                    $users = Client::searchClients($searchTerm);
                 } else {
                     // Sinon, récupérer tous les utilisateurs
                     $users = User::getAllUsers();
@@ -55,7 +46,9 @@ $userType = $_SESSION['userType'];
 
                 foreach ($users as $user) {
                     echo "<tr>";
+                    echo "<td > ". $user->getIdClient() . "</td>";
                     echo "<td > ". $user->getIdUtilisateur() . "</td>";
+
                     echo "<td>" . $user->getNomUtilisateur() . "</td>";
                     echo "<td>" . $user->getPrenomUtilisateur() . "</td>";
                     echo "<td>" . $user->getEmail() . "</td>";

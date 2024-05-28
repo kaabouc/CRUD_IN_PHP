@@ -1,34 +1,4 @@
 <?php include('../admin/includes/header_user.php') ?>
-
-<?php 
-include_once '../config.php';
-include_once '../User/User.php';
-include_once 'Client.php';
-
-session_start();
-
-if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
-    header("Location: ../login.php");
-    exit;
-}
-
-$userType = $_SESSION['userType'];
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $email = $_POST['email'];
-    $tel = $_POST['tel'];
-    $motDePasse = $_POST['motDePasse'];
-    $type = $_POST['type']; // Récupération du type d'utilisateur sélectionné
-    // Création de l'utilisateur de base
-    $user = new User($nom, $prenom, $email, $tel, $motDePasse);
-    $user->save($type);
-    $idUtilisateur = $user->getIdUtilisateur();
-
-    header("Location: index.php");
-    exit();
-}
-?>
 <div class="content-wrapper">
 <section class="content">
       <div class="container-fluid">
@@ -37,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               
              <div class="container">
         <h2>Créer un Utilisateur</h2>
-        <form method="post" action="">
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="form-group">
                 <label for="nom">Nom:</label>
                 <input type="text" class="form-control" id="nom" name="nom" required>

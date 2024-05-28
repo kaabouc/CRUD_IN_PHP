@@ -2,6 +2,14 @@
 include_once '../config.php';
 include_once 'Appareil.php';
 include_once '../class/Client.php';
+session_start();
+
+if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
+    header("Location: ../login.php");
+    exit;
+}
+$userType = $_SESSION['userType'];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idClient = $_POST['idClient']; // Correction ici
     $typeAppareil = $_POST['typeAppareil'];

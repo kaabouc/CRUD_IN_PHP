@@ -2,10 +2,7 @@
 include_once 'config.php';
 include_once 'User/User.php';
 session_start();
-    // if (!isset($_SESSION['idLogin'])) {
-    //   header("Location: login.php");
-    //   exit;
-    // }
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -20,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $type = $result['type'];
         $id = $result['id'];
         $_SESSION['idLogin'] = $id;
+        $_SESSION['userType'] = $type;
         
         // Redirection en fonction du type d'utilisateur
         switch ($type) {
