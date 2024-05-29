@@ -15,8 +15,10 @@ include('../admin/includes/header_user.php') ?>
               
              <div class="container">
         <h2>Liste des AgentReparations </h2>
-        <a href="create.php" class="btn btn-primary mb-3">Ajouter un utilisateur</a>
+        <?php if ($userType == 'admin' ) { 
 
+       echo' <a href="create.php" class="btn btn-primary mb-3">Ajouter un agent reparation </a>';
+         } ?>
         <!-- Barre de recherche -->
         <form class="form-inline mb-3" method="GET">
             <input class="form-control mr-sm-2" type="text" name="search" placeholder="Rechercher...">
@@ -33,7 +35,9 @@ include('../admin/includes/header_user.php') ?>
                     <th>Email</th>
                     <th>Téléphone</th>
                     <th>Statut</th>
-                    <th colspan="2">Action</th>
+                    <?php if ($userType == 'admin'  ) { 
+                    echo' <th colspan="2">Action</th>';
+                    } ?>      
                 </tr>
             </thead>
             <tbody>
@@ -64,11 +68,13 @@ include('../admin/includes/header_user.php') ?>
                 
                         $isActive = $userInfo->isActive();
                         echo "<td>" . ($isActive ? "<span class='badge badge-success'>Actif</span>" : "<span class='badge badge-secondary'>Inactif</span>") . "</td>";
-                
+                        if ($userType == 'admin'  ) { 
+
                         echo "<td>
                                 <a href='update.php?id=" . $userInfo->getIdUtilisateur() . "' class='btn btn-primary'>Modifier</a>
                                 <a href='delete.php?id=" . $user->getIdAgentRéparation() . "' class='btn btn-danger' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer cet utilisateur ?\")'>Supprimer</a>
                               </td>";
+                        }
                     } else {
                         echo "<td colspan='5'>Utilisateur non trouvé</td>";
                     }

@@ -16,8 +16,10 @@ include('../admin/includes/header_user.php') ?>
               
              <div class="container">
         <h2>Liste des Détails de Commande</h2>
-        <a href="create.php" class="btn btn-primary mb-3">Ajouter un détail de commande</a>
+        <?php if ($userType == 'admin' ) { 
 
+echo' <a href="create.php" class="btn btn-primary mb-3">Ajouter Détails de Commande</a>';
+  } ?>
         <form class="form-inline mb-3" method="GET">
             <input class="form-control mr-sm-2" type="text" name="search" placeholder="Rechercher...">
             <button class="btn btn-outline-success" type="submit">Rechercher</button>
@@ -30,7 +32,9 @@ include('../admin/includes/header_user.php') ?>
                     <th>ID Pièce</th>
                     
                     <th>Quantité</th>
-                    <th>Action</th>
+                    <?php if ($userType == 'admin' || $userType == 'agent' ) { 
+                    echo' <th >Action</th>';
+                    } ?>
 
                 </tr>
             </thead>
@@ -51,10 +55,12 @@ include('../admin/includes/header_user.php') ?>
                     echo "<td>" . $detail->getIdReparation() . "</td>";
                     echo "<td>" . $detail->getIdPiece() . "</td>";
                     echo "<td>" . $detail->getQte() . "</td>";
+                    if ($userType == 'admin' || $userType == 'agent' ) { 
                     echo "<td>
                             <a href='update.php?idReparation=" . $detail->getIdReparation() . "&idPiece=" . $detail->getIdPiece() . "' class='btn btn-primary'>Modifier</a>
                             <a href='delete.php?idReparation=" . $detail->getIdReparation() . "&idPiece=" . $detail->getIdPiece() . "' class='btn btn-danger'>Supprimer</a>
                           </td>";
+                    }
                     echo "</tr>";
                 }
                 ?>

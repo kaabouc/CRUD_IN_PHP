@@ -5,6 +5,8 @@
           header("Location: ../../login.php");
           exit;
       }
+      $userType = $_SESSION['userType'];
+
 include "../../config.php";
   //  $sql = "select count(*) as total2  from voiture";
   //  $voi = $conn->query($sql);
@@ -123,7 +125,7 @@ include "../../config.php";
           
 
             // Retrieve the infraction data from the database
-            $query = "SELECT Date, COUNT(*) AS infractionCount FROM infraction GROUP BY Date ORDER BY Date ASC";
+            $query = "SELECT NomUtilisateur , COUNT(*) AS infractionCount FROM Utilisateur GROUP BY NomUtilisateur ORDER BY NomUtilisateur ASC";
             $result = $conn->query($query);
 
             // Check if the query was successful

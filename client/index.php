@@ -40,7 +40,7 @@ include('../admin/includes/header_user.php');
                     <th>Téléphone</th>
                     <th>Statut</th>
                    <?php if ($userType == 'admin' || $userType == 'agent' ) { 
-                    echo' <th>Action</th>';
+                    echo' <th colspan="2">Action</th>';
                     } ?>
                 </tr>
             </thead>

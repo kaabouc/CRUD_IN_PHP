@@ -16,8 +16,10 @@ include('../admin/includes/header_user.php') ?>
               
              <div class="container">
         <h2>Liste des appareils</h2>
-        <a href="create.php" class="btn btn-primary mb-3">Ajouter un appareil</a>
+        <?php if ($userType == 'admin' || $userType == 'agent'  ) { 
 
+echo' <a href="create.php" class="btn btn-primary mb-3">Ajouter un Appareil</a>';
+  } ?>
         <!-- Barre de recherche -->
         <form class="form-inline mb-3" method="GET">
             <input class="form-control mr-sm-2" type="text" name="search" placeholder="Rechercher...">
@@ -30,7 +32,9 @@ include('../admin/includes/header_user.php') ?>
                     <th>ID</th>
                     <th>Type d'appareil</th>
                     <th>Modèle</th>
-                    <th>Action</th>
+                    <?php if ($userType == 'admin' || $userType == 'agent' ) { 
+                    echo' <th colspan="2">Action</th>';
+                    } ?>
                 </tr>
             </thead>
             <tbody>
@@ -61,9 +65,12 @@ include('../admin/includes/header_user.php') ?>
                     echo "<td>" . $appareil->getIdAppareil() . "</td>";
                     echo "<td>" . $appareil->getTypeAppareil() . "</td>";
                     echo "<td>" . $appareil->getModele() . "</td>";
+                    if ($userType == 'admin' || $userType == 'agent' ) { 
+
                     echo "<td><a href='update.php?idAppareil=" . $appareil->getIdAppareil() . "' class='btn btn-primary'>Modifier</a>
                             <a href='delete.php?id=" . $appareil->getIdAppareil() . "' class='btn btn-danger'>Supprimer</a></td>";
                     echo "</tr>";
+                    }
                 }
                 ?>
             </tbody>

@@ -16,8 +16,10 @@ include('../admin/includes/header_user.php') ?>
               
              <div class="container">
         <h2>Liste des Pièces de Rechange</h2>
-        <a href="create.php" class="btn btn-primary mb-3">Ajouter une pièce de rechange</a>
+        <?php if ($userType == 'admin' ) { 
 
+echo' <a href="create.php" class="btn btn-primary mb-3">Ajouter Pièces de Rechange</a>';
+  } ?>
         <form class="form-inline mb-3" method="GET">
             <input class="form-control mr-sm-2" type="text" name="search" placeholder="Rechercher...">
             <button class="btn btn-outline-success" type="submit">Rechercher</button>
@@ -31,7 +33,10 @@ include('../admin/includes/header_user.php') ?>
                     <th>Quantité en Stock</th>
                     <th>Seuil Minimum</th>
                     <th>Seuil Maximum</th>
-                    <th>Action</th>
+                    <?php if ($userType == 'admin' || $userType == 'agent' ) { 
+                    echo' <th colspan="1">Action</th>';
+                    } ?>
+
                 </tr>
             </thead>
             <tbody>
@@ -53,9 +58,12 @@ include('../admin/includes/header_user.php') ?>
                     echo "<td>" . $piece->getQteStock() . "</td>";
                     echo "<td>" . $piece->getSeuilMin() . "</td>";
                     echo "<td>" . $piece->getSeuilMax() . "</td>";
+                    if ($userType == 'admin' || $userType == 'agent' ) { 
+
                     echo "<td><a href='update.php?id=" . $piece->getIdPiece() . "' class='btn btn-primary'>Modifier</a>
                             <a href='delete.php?id=" . $piece->getIdPiece() . "' class='btn btn-danger'>Supprimer</a></td>";
                     echo "</tr>";
+                    }
                 }
                 ?>
             </tbody>

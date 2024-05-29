@@ -17,8 +17,10 @@ include('../admin/includes/header_user.php') ?>
               
              <div class="container">
         <h2>Liste des règlements</h2>
-        <a href="create.php" class="btn btn-primary mb-3">Ajouter un règlement</a>
+        <?php if ($userType == 'admin' ) { 
 
+echo' <a href="create.php" class="btn btn-primary mb-3">Ajouter règlements</a>';
+  } ?>
         <form class="form-inline mb-3" method="GET">
             <input class="form-control mr-sm-2" type="text" name="search" placeholder="Rechercher...">
             <button class="btn btn-outline-success" type="submit">Rechercher</button>
@@ -31,7 +33,9 @@ include('../admin/includes/header_user.php') ?>
                     <th>ID Réparation</th>
                     <th>Montant</th>
                     <th>Date de règlement</th>
-                    <th>Action</th>
+                    <?php if ($userType == 'admin' || $userType == 'agent' ) { 
+                    echo' <th colspan="1">Action</th>';
+                    } ?>
                 </tr>
             </thead>
             <tbody>
@@ -52,9 +56,12 @@ include('../admin/includes/header_user.php') ?>
                     echo "<td>" . $reglement->getIdReparation() . "</td>";
                     echo "<td>" . $reglement->getMontant() . "</td>";
                     echo "<td>" . $reglement->getDateReglement() . "</td>";
+                    if ($userType == 'admin' || $userType == 'agent' ) { 
+
                     echo "<td><a href='update.php?id=" . $reglement->getIdReglement() . "' class='btn btn-primary'>Modifier</a>
                             <a href='delete.php?id=" . $reglement->getIdReglement() . "' class='btn btn-danger'>Supprimer</a></td>";
                     echo "</tr>";
+                    }
                 }
                 ?>
             </tbody>

@@ -16,8 +16,10 @@ include('../admin/includes/header_user.php') ?>
               
              <div class="container">
         <h2>Liste des réparations</h2>
-        <a href="create.php" class="btn btn-primary mb-3">Ajouter une réparation</a>
+        <?php if ($userType == 'admin' ) { 
 
+echo' <a href="create.php" class="btn btn-primary mb-3">Ajouter un réparations</a>';
+  } ?>
         <!-- Barre de recherche -->
         <form class="form-inline mb-3" method="GET">
             <input class="form-control mr-sm-2" type="text" name="search" placeholder="Rechercher...">
@@ -35,7 +37,9 @@ include('../admin/includes/header_user.php') ?>
                     <th>Date Fin Réelle</th>
                     <th>Coût Estimé</th>
                     <th>État</th>
-                    <th>Action</th>
+                    <?php if ($userType == 'admin' || $userType == 'agent' ) { 
+                    echo' <th colspan="1">Action</th>';
+                    } ?>
                 </tr>
             </thead>
             <tbody>
@@ -62,12 +66,14 @@ include('../admin/includes/header_user.php') ?>
                     echo "<td>" . $reparation->getDateFinR() . "</td>";
                     echo "<td>" . $reparation->getCoutEstime() . "</td>";
                     echo "<td>" . $reparation->getEtatR() . "</td>";
+                    if ($userType == 'admin' || $userType == 'agent' ) { 
 
                     echo "<td>
                             <a href='update.php?id=" . $reparation->getIdReparation() . "' class='btn btn-primary'>Modifier</a>
                             <a href='delete.php?id=" . $reparation->getIdReparation() . "' class='btn btn-danger' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer cette réparation ?\")'>Supprimer</a>
                           </td>";
                     echo "</tr>";
+                    }
                 }
                 ?>
             </tbody>

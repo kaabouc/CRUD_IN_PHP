@@ -16,8 +16,10 @@ include('../admin/includes/header_user.php') ?>
               
              <div class="container">
         <h2>Liste des Admin </h2>
-        <a href="create.php" class="btn btn-primary mb-3">Ajouter un utilisateur</a>
+        <?php if ($userType == 'admin' ) { 
 
+echo' <a href="create.php" class="btn btn-primary mb-3">Ajouter un admin</a>';
+  } ?>
         <!-- Barre de recherche -->
         <form class="form-inline mb-3" method="GET">
             <input class="form-control mr-sm-2" type="text" name="search" placeholder="Rechercher...">
@@ -34,8 +36,10 @@ include('../admin/includes/header_user.php') ?>
                     <th>Email</th>
                     <th>Téléphone</th>
                     <th>date dernier connection</th>
-                    <th colspan="2">Action</th>
-                </tr>
+                    <?php if ($userType == 'admin'  ) { 
+                    echo' <th colspan="2">Action</th>';
+                    } ?>                
+                    </tr>
             </thead>
             <tbody>
                 <?php
@@ -64,11 +68,13 @@ include('../admin/includes/header_user.php') ?>
                         echo "<td>" . $userInfo->getTel() . "</td>";
                         echo "<td >" . $user->getDateDernConnex() . "</td>";
                        
-                       
+                        if ($userType == 'admin'  ) { 
+
                         echo "<td>
                                 <a href='update.php?id=" . $userInfo->getIdUtilisateur() . "' class='btn btn-primary'>Modifier</a>
                                 <a href='delete.php?id=" . $user->getIdAdministrateur() . "' class='btn btn-danger' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer cet utilisateur ?\")'>Supprimer</a>
                               </td>";
+                        }
                     } else {
                         echo "<td colspan='5'>Utilisateur non trouvé</td>";
                     }

@@ -1,14 +1,15 @@
 <?php 
-
-include('../admin/includes/header_user.php');
 session_start();
-
 if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
     header("Location: ../login.php");
     exit;
 }
 
 $userType = $_SESSION['userType'];
+
+include('../admin/includes/header_user.php');
+
+
 
 ?>
 <div class="content-wrapper">
@@ -19,8 +20,10 @@ $userType = $_SESSION['userType'];
               
              <div class="container">
         <h2>Liste des utilisateurs</h2>
-        <a href="create.php" class="btn btn-primary mb-3">Ajouter un utilisateur</a>
+        <?php if ($userType == 'admin' ) { 
 
+echo' <a href="create.php" class="btn btn-primary mb-3">Ajouter un utilisateurs</a>';
+  } ?>
         <!-- Barre de recherche -->
         <form class="form-inline mb-3" method="GET">
             <input class="form-control mr-sm-2" type="text" name="search" placeholder="Rechercher...">
@@ -36,7 +39,9 @@ $userType = $_SESSION['userType'];
                     <th>Email</th>
                     <th>Téléphone</th>
                     <th>Statut</th>
-                    <th>Action</th>
+                    <?php if ($userType == 'admin' || $userType == 'agent' ) { 
+                    echo' <th colspan="1">Action</th>';
+                    } ?>
                 </tr>
             </thead>
             <tbody>
@@ -64,6 +69,7 @@ $userType = $_SESSION['userType'];
                     // Vérifier si l'utilisateur est actif et afficher une icône ou le mot "actif"
                     $isActive = $user->isActive(); // Supposons que vous ayez une méthode isActive() dans la classe User
                     echo "<td>" . ($isActive ? "<span class='badge badge-success'>Actif</span>" : "<span class='badge badge-secondary'>Inactif</span>") . "</td>";
+                    if ($userType == 'admin' || $userType == 'agent' ) { 
 
                     echo "<td>
                             <a href='update.php?id=" . $user->getIdUtilisateur() . "' class='btn btn-primary'>Modifier</a>
@@ -71,6 +77,7 @@ $userType = $_SESSION['userType'];
                     
                             <a href='delete.php?id=" . $user->getIdUtilisateur() . "' class='btn btn-danger' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer cet utilisateur ?\")'>Supprimer</a>
                           </td>";
+                    }
                     echo "</tr>";
                 }
                 ?>

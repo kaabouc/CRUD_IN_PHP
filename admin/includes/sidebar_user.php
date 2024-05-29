@@ -1,3 +1,14 @@
+<?php 
+
+if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
+    header("Location: ../login.php");
+    exit;
+}
+$userType = $_SESSION['userType'];
+
+
+
+?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="" class="brand-link">
@@ -47,7 +58,9 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <?php if ($userType == 'admin' ) { 
+
+         echo' <li class="nav-item">
             <a href="../../admine/index.php" class="nav-link">
             <i class="fas fa-car"></i>
               <p>
@@ -55,7 +68,8 @@
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
-          </li>
+          </li>';
+        } ?>
           <li class="nav-item">
             <a href="../../Appareil/index.php" class="nav-link">
             <i class="fas fa-exclamation-triangle"></i>
