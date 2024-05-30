@@ -1,7 +1,4 @@
 <?php
-include_once '../config.php';
-include_once 'Reparation.php';
-
 session_start();
 
 if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
@@ -10,17 +7,18 @@ if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
 }
 $userType = $_SESSION['userType'];
 
-if (isset($_GET['id'])) {
+include_once '../config.php';
+include_once 'Reparation.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $idReparation = $_GET['id'];
-    $reparation = new Reparation(null, null, null, null, null, null, null);
-    $reparation->setIdReparation($idReparation);
-    if ($reparation->delete()) {
-        header("Location: index.php");
-        exit();
-    } else {
-        echo "Erreur lors de la suppression de la réparation.";
+    $reparation = Reparation::getReparationById($idReparation);
+
+    if ($reparation) {
+        $reparation->delete();
     }
-} else {
-    echo "ID de réparation manquant.";
+
+    header('Location: index.php');
+    exit();
 }
 ?>

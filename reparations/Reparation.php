@@ -4,6 +4,7 @@ include_once '../config.php';
 class Reparation {
     private $idReparation;
     private $idAgentReparation;
+    private $idAppareil;  // Foreign key to Appareil
     private $description;
     private $dateDebut;
     private $dateFinP;
@@ -11,8 +12,9 @@ class Reparation {
     private $coutEstime;
     private $etatR;
 
-    public function __construct($idAgentReparation, $description, $dateDebut, $dateFinP, $dateFinR, $coutEstime, $etatR) {
+    public function __construct($idAgentReparation, $idAppareil, $description, $dateDebut, $dateFinP, $dateFinR, $coutEstime, $etatR) {
         $this->idAgentReparation = $idAgentReparation;
+        $this->idAppareil = $idAppareil;  // Initialize the new attribute
         $this->description = $description;
         $this->dateDebut = $dateDebut;
         $this->dateFinP = $dateFinP;
@@ -21,7 +23,7 @@ class Reparation {
         $this->etatR = $etatR;
     }
 
-    // Getters et setters pour les attributs
+    // Getters and setters for the attributes, including IdAppareil
 
     public function getIdReparation() {
         return $this->idReparation;
@@ -37,6 +39,14 @@ class Reparation {
 
     public function setIdAgentReparation($idAgentReparation) {
         $this->idAgentReparation = $idAgentReparation;
+    }
+
+    public function getIdAppareil() {
+        return $this->idAppareil;
+    }
+
+    public function setIdAppareil($idAppareil) {
+        $this->idAppareil = $idAppareil;
     }
 
     public function getDescription() {
@@ -87,10 +97,13 @@ class Reparation {
         $this->etatR = $etatR;
     }
 
+
+ 
     public function save() {
         global $conn;
 
         $idAgentReparation = $this->idAgentReparation;
+        $idAppareil = $this->idAppareil;  // Use the new attribute
         $description = $this->description;
         $dateDebut = $this->dateDebut;
         $dateFinP = $this->dateFinP;
@@ -98,8 +111,8 @@ class Reparation {
         $coutEstime = $this->coutEstime;
         $etatR = $this->etatR;
 
-        $sql = "INSERT INTO Réparation (IdAgentRéparation, Description, DateDebut, DateFinP, DateFinR, CoutEstime, EtatR) 
-                VALUES ('$idAgentReparation', '$description', '$dateDebut', '$dateFinP', '$dateFinR', '$coutEstime', '$etatR')";
+        $sql = "INSERT INTO Réparation (IdAgentRéparation, IdAppareil, Description, DateDebut, DateFinP, DateFinR, CoutEstime, EtatR) 
+                VALUES ('$idAgentReparation', '$idAppareil', '$description', '$dateDebut', '$dateFinP', '$dateFinR', '$coutEstime', '$etatR')";
         return $conn->query($sql);
     }
 
@@ -108,6 +121,7 @@ class Reparation {
 
         $idReparation = $this->idReparation;
         $idAgentReparation = $this->idAgentReparation;
+        $idAppareil = $this->idAppareil;  // Use the new attribute
         $description = $this->description;
         $dateDebut = $this->dateDebut;
         $dateFinP = $this->dateFinP;
@@ -115,7 +129,7 @@ class Reparation {
         $coutEstime = $this->coutEstime;
         $etatR = $this->etatR;
 
-        $sql = "UPDATE Réparation SET IdAgentRéparation = '$idAgentReparation', Description = '$description', 
+        $sql = "UPDATE Réparation SET IdAgentRéparation = '$idAgentReparation', IdAppareil = '$idAppareil', Description = '$description', 
                 DateDebut = '$dateDebut', DateFinP = '$dateFinP', DateFinR = '$dateFinR', CoutEstime = '$coutEstime', 
                 EtatR = '$etatR' WHERE IdRéparation = '$idReparation'";
         return $conn->query($sql);
@@ -139,7 +153,7 @@ class Reparation {
         $reparations = array();
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                $reparation = new Reparation($row['IdAgentRéparation'], $row['Description'], $row['DateDebut'], 
+                $reparation = new Reparation($row['IdAgentRéparation'], $row['IdAppareil'], $row['Description'], $row['DateDebut'], 
                                               $row['DateFinP'], $row['DateFinR'], $row['CoutEstime'], $row['EtatR']);
                 $reparation->setIdReparation($row['IdRéparation']);
                 $reparations[] = $reparation;
@@ -158,7 +172,7 @@ class Reparation {
         $reparations = array();
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                $reparation = new Reparation($row['IdAgentRéparation'], $row['Description'], $row['DateDebut'], 
+                $reparation = new Reparation($row['IdAgentRéparation'], $row['IdAppareil'], $row['Description'], $row['DateDebut'], 
                                               $row['DateFinP'], $row['DateFinR'], $row['CoutEstime'], $row['EtatR']);
                 $reparation->setIdReparation($row['IdRéparation']);
                 $reparations[] = $reparation;
@@ -167,7 +181,27 @@ class Reparation {
 
         return $reparations;
     }
+    public static function getReparationsByAppareilId($idAppareil) {
+        global $conn; // Utilise la connexion globale à la base de données.
+        $query = "SELECT * FROM Réparation WHERE idAppareil = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $idAppareil);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $reparations = array();
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $reparation = new Reparation($row['IdAgentRéparation'], $row['IdAppareil'], $row['Description'], $row['DateDebut'], 
+                                              $row['DateFinP'], $row['DateFinR'], $row['CoutEstime'], $row['EtatR']);
+                $reparation->setIdReparation($row['IdRéparation']);
+                $reparations[] = $reparation;
+            }
+        }
 
+        return $reparations;
+    }
+    
     public static function getReparationById($idReparation) {
         global $conn;
 
@@ -178,6 +212,7 @@ class Reparation {
             $row = $result->fetch_assoc();
             $reparation = new Reparation(
                 $row['IdAgentRéparation'], 
+                $row['IdAppareil'],  // Use the new attribute
                 $row['Description'], 
                 $row['DateDebut'], 
                 $row['DateFinP'], 

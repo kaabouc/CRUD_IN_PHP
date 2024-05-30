@@ -134,6 +134,28 @@ class Appareil {
     
         return $appareils;
     }
+
+    public static function getAppareilsByClientId($idClient) {
+        global $conn; // Utilise la connexion globale à la base de données.
+        $query = "SELECT * FROM Appareil WHERE idClient = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $idClient);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $appareils = array();
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $appareil = new Appareil($row['IdClient'], $row['TypeAppareil'], $row['Modèle']);
+                $appareil->setIdAppareil($row['IdAppareil']);
+                $appareils[] = $appareil;
+            }
+        }
+    
+        return $appareils;
+    }
+    
     
 }
+
 ?>

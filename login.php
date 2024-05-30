@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Redirection en fonction du type d'utilisateur
         switch ($type) {
             case 'client':
-                header("Location: client_dashboard.php?id=$id");
+                header("Location: client_interface/appareils.php");
                 break;
             case 'admin':
                 header("Location: admin/pages/index.php");

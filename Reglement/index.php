@@ -17,7 +17,7 @@ include('../admin/includes/header_user.php') ?>
               
              <div class="container">
         <h2>Liste des règlements</h2>
-        <?php if ($userType == 'admin' ) { 
+        <?php if ($userType == 'admin'|| $userType == 'agent' ) { 
 
 echo' <a href="create.php" class="btn btn-primary mb-3">Ajouter règlements</a>';
   } ?>

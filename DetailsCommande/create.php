@@ -53,7 +53,7 @@ $pieces = PieceRechange::getAllPiecesRechange();
                 <label for="idPiece">ID Pièce:</label>
                 <select class="form-control" id="idPiece" name="idPiece" required>
                     <?php foreach ($pieces as $piece) {
-                        echo "<option value='" . $piece->getIdPiece() . "'>" . $piece->getLibPiece() . "</option>";
+                        echo "<option value='" . $piece->getIdPiece() . "'>" . $piece->getIdPiece() ."  ". $piece->getLibPiece() . "</option>";
                     } ?>
                 </select>
             </div>

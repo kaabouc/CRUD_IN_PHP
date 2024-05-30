@@ -45,7 +45,7 @@
         <div class="container-xxl position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
                 <a href="" class="navbar-brand p-0">
-                    <h1 class="m-0"><i class=""></i>G<span class="fs-5">infraction</span></h1>
+                    <h1 class="m-0"><i class=""></i>R<span class="fs-5">appareils</span></h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -68,13 +68,13 @@
                 <div class="container my-5 py-5 px-lg-5">
                     <div class="row g-5 py-5">
                         <div class="col-lg-6 text-center text-lg-start">
-                            <h1 class="text-white mb-4 animated zoomIn">Infraction routiere</h1>    
-                            <p class="text-white pb-3 animated zoomIn">Bienvenue sur notre site web de gestion des infractions. Nous sommes là pour simplifier et rationaliser le processus de gestion des infractions, que ce soit pour les organismes d'application de la loi, les institutions gouvernementales ou les entreprises privées</p>
-                            <a href="" class="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">Free Quote</a>
+                            <h1 class="text-white mb-4 animated zoomIn">réparation des appareils</h1>    
+                            <p class="text-white pb-3 animated zoomIn"> nous sommes dédiés à offrir des services de réparation de haute qualité pour tous vos appareils électroniques. Que ce soit pour votre smartphone, tablette, ordinateur, ou tout autre appareil, notre équipe de techniciens qualifiés est prête à redonner vie à vos équipements endommagés.</p>
+                            <a href="" class="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">NOS SERVICES</a>
                             <a href="#contact" class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Contact Us</a>
                         </div>
                         <div class="col-lg-6 text-center text-lg-start">
-                            <img class="img-fluid" src="img/infraction1.png" alt="" >
+                            <img class="img-fluid" src="img/rep4.png" alt="" >
                         </div>
                     </div>
                 </div>
@@ -91,12 +91,12 @@
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="section-title position-relative mb-4 pb-2" >
                             <h6 class="position-relative text-primary ps-4" >À propos</h6>
-                            <h2 class="mt-2">À propos de notre plateforme de gestion des infractions</h2>
+                            <h2 class="mt-2">À propos de notre plateforme de réparation des appareils </h2>
                         </div>
-                        <p class="mb-4">Notre plateforme offre une solution complète pour la gestion des infractions, depuis la 
-                            collecte initiale des informations jusqu'au suivi et à la résolution des cas.
-                             Grâce à notre interface conviviale, les utilisateurs peuvent facilement enregistrer les infractions, 
-                            gérer les dossiers, suivre les étapes du processus et générer des rapports détaillés.</p>
+                        <p class="mb-4">Notre mission est simple : fournir des services de réparation de qualité supérieure, en mettant 
+                            l'accent sur la transparence, la rapidité et la satisfaction du client. Nous croyons fermement que chaque appareil mérite 
+                            une seconde chance et nous nous engageons à restaurer pleinement ses fonctionnalités pour prolonger sa durée de vie et éviter 
+                            le gaspillage électronique.</p>
                         
                         <div class="d-flex align-items-center mt-4">
                             <a class="btn btn-primary rounded-pill px-4 me-3" href="">Read More</a>
@@ -107,7 +107,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <img class="img-fluid wow zoomIn" data-wow-delay="0.5s" src="img/infaraction.png">
+                        <img class="img-fluid wow zoomIn" data-wow-delay="0.5s" src="img/rep3.png">
                     </div>
                 </div>
             </div>
@@ -129,8 +129,8 @@
                             <div class="service-icon flex-shrink-0">
                                 <i class="fa fa-home fa-2x"></i>
                             </div>
-                            <h5 class="mb-3">Analyse les infractions </h5>
-                            <p> aide à extraire des informations précieuses à partir des données d'infractions collectées</p>
+                            <h5 class="mb-3">Réparation de Smartphones  </h5>
+                            <p> Écran cassé, problème de batterie, ou dysfonctionnement logiciel ? Nous réparons toutes les marques et modèles.</p>
                             <a class="btn px-3 mt-auto mx-auto" href="">Read More</a>
                         </div>
                     </div>
@@ -139,8 +139,8 @@
                             <div class="service-icon flex-shrink-0">
                                 <i class="fa fa-home fa-2x"></i>
                             </div>
-                            <h5 class="mb-3">Conformité réglementaire</h5>
-                            <p>vous conformer aux exigences légales et réglementaires en matière de gestion des infractions.</p>
+                            <h5 class="mb-3">Réparation de Tablettes</h5>
+                            <p>Que ce soit un iPad ou une tablette Android, nous avons les compétences pour diagnostiquer et résoudre les problèmes rapidement.</p>
                             <a class="btn px-3 mt-auto mx-auto" href="">Read More</a>
                         </div>
                     </div>
@@ -149,8 +149,8 @@
                             <div class="service-icon flex-shrink-0">
                                 <i class="fa fa-home fa-2x"></i>
                             </div>
-                            <h5 class="mb-3">suivi des infractions</h5>
-                            <p>permet de gérer efficacement tous les aspects liés au suivi des cas d'infractions</p>
+                            <h5 class="mb-3">Réparation d'Appareils Électroniques</h5>
+                            <p>Nous prenons en charge une variété d'autres appareils, des consoles de jeux aux systèmes audio.</p>
                             <a class="btn px-3 mt-auto mx-auto" href="">Read More</a>
                         </div>
                     </div>
@@ -171,7 +171,7 @@
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            <a class="border-bottom" href="#">Gestion des infractions</a>
+                            <a class="border-bottom" href="#">Réparation d'Appareils </a>
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">

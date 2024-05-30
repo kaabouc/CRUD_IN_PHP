@@ -1,4 +1,5 @@
-<?php 
+<!DOCTYPE html>
+<?php
 session_start();
 
 if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
@@ -7,87 +8,118 @@ if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
 }
 $userType = $_SESSION['userType'];
 
-include('../admin/includes/header_user.php') ?>
+include('../admin/includes/header_user.php');
+include_once '../config.php';
+include_once 'Reparation.php';
+include_once '../appareil/Appareil.php';
+include_once '../agent/AgentRéparation.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['idReparation'])) {
+    $idReparation = $_POST['idReparation'];
+    $idAgentReparation = $_POST['idAgentReparation'];
+    $idAppareil = $_POST['idAppareil'];
+    $description = $_POST['description'];
+    $dateDebut = $_POST['dateDebut'];
+    $dateFinP = $_POST['dateFinP'];
+    $dateFinR = $_POST['dateFinR'];
+    $coutEstime = $_POST['coutEstime'];
+    $etatR = $_POST['etatR'];
+
+    $reparation = Reparation::getReparationById($idReparation);
+    if ($reparation) {
+        $reparation->setIdAgentReparation($idAgentReparation);
+        $reparation->setIdAppareil($idAppareil);
+        $reparation->setDescription($description);
+        $reparation->setDateDebut($dateDebut);
+        $reparation->setDateFinP($dateFinP);
+        $reparation->setDateFinR($dateFinR);
+        $reparation->setCoutEstime($coutEstime);
+        $reparation->setEtatR($etatR);
+        $reparation->update();
+
+        header("Location: index.php");
+        exit();
+    }
+}
+
+if (isset($_GET['id'])) {
+    $idReparation = $_GET['id'];
+    $reparation = Reparation::getReparationById($idReparation);
+    if ($reparation) {
+        $appareils = Appareil::getAllAppareils();
+        $agentrepartion = AgentRéparation::getAllAgentsRéparation();
+?>
+
 <div class="content-wrapper">
-<section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-              
-             <div class="container">
-        <h2>Modifier une réparation</h2>
-        <?php
-        include_once '../config.php';
-        include_once 'Reparation.php';
-
-        if (isset($_GET['id'])) {
-            $idReparation = $_GET['id'];
-            $reparation = Reparation::getReparationById($idReparation);
-
-            if ($reparation) {
-        ?>
-        <form method="post" action="">
-            <input type="hidden" name="idReparation" value="<?php echo $reparation->getIdReparation(); ?>">
-            <div class="form-group">
-                <label for="idAgentReparation">ID Agent Réparation:</label>
-                <input type="text" class="form-control" id="idAgentReparation" name="idAgentReparation" value="<?php echo $reparation->getIdAgentReparation(); ?>" required>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="container">
+                    <h2>Modifier une Réparation</h2>
+                    <form method="post"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
+                        <input type="hidden" name="idReparation" value="<?php echo $reparation->getIdReparation(); ?>">
+                        <div class="form-group">
+                            <label for="idAgentReparation">ID Agent:</label>
+                            <select name="idAgentReparation" class="form-control" required>
+                                <?php foreach ($agentrepartion as $agent) { ?>
+                                    <option value="<?php echo $agent->getIdAgentRéparation(); ?>" <?php echo ($reparation->getIdAgentReparation() == $agent->getIdAgentRéparation()) ? 'selected' : ''; ?>>
+                                        <?php echo $agent->getIdAgentRéparation() . " " . $agent->getEtatAgent(); ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="idAppareil">ID Appareil:</label>
+                            <select name="idAppareil" class="form-control" required>
+                                <?php foreach ($appareils as $appareil) { ?>
+                                    <option value="<?php echo $appareil->getIdAppareil(); ?>" <?php echo ($reparation->getIdAppareil() == $appareil->getIdAppareil()) ? 'selected' : ''; ?>>
+                                        <?php echo $appareil->getIdAppareil() . " " . $appareil->getTypeAppareil(); ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea name="description" class="form-control" required><?php echo $reparation->getDescription(); ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateDebut">Date de début:</label>
+                            <input type="date" name="dateDebut" class="form-control" value="<?php echo $reparation->getDateDebut(); ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateFinP">Date de fin prévue:</label>
+                            <input type="date" name="dateFinP" class="form-control" value="<?php echo $reparation->getDateFinP(); ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateFinR">Date de fin réelle:</label>
+                            <input type="date" name="dateFinR" class="form-control" value="<?php echo $reparation->getDateFinR(); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="coutEstime">Coût estimé:</label>
+                            <input type="number" name="coutEstime" class="form-control" value="<?php echo $reparation->getCoutEstime(); ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="etatR">État:</label>
+                            <select name="etatR" class="form-control" required>
+                                <option value="en cours" <?php echo ($reparation->getEtatR() == 'en cours') ? 'selected' : ''; ?>>En cours</option>
+                                <option value="validé" <?php echo ($reparation->getEtatR() == 'validé') ? 'selected' : ''; ?>>Validé</option>
+                                <option value="annulé" <?php echo ($reparation->getEtatR() == 'annulé') ? 'selected' : ''; ?>>Annulé</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="description">Description:</label>
-                <textarea class="form-control" id="description" name="description" required><?php echo $reparation->getDescription(); ?></textarea>
-            </div>
-            <div class="form-group">
-                <label for="dateDebut">Date Début:</label>
-                <input type="date" class="form-control" id="dateDebut" name="dateDebut" value="<?php echo $reparation->getDateDebut(); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="dateFinP">Date Fin Prévue:</label>
-                <input type="date" class="form-control" id="dateFinP" name="dateFinP" value="<?php echo $reparation->getDateFinP(); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="dateFinR">Date Fin Réelle:</label>
-                <input type="date" class="form-control" id="dateFinR" name="dateFinR" value="<?php echo $reparation->getDateFinR(); ?>">
-            </div>
-            <div class="form-group">
-                <label for="coutEstime">Coût Estimé:</label>
-                <input type="number" class="form-control" id="coutEstime" name="coutEstime" value="<?php echo $reparation->getCoutEstime(); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="etatR">État:</label>
-                <input type="text" class="form-control" id="etatR" name="etatR" value="<?php echo $reparation->getEtatR(); ?>" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Mettre à jour</button>
-        </form>
-        <?php
-            } else {
-                echo "<div class='alert alert-danger'>Réparation non trouvée.</div>";
-            }
-        } else {
-            echo "<div class='alert alert-danger'>ID de réparation manquant.</div>";
-        }
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $idReparation = $_POST['idReparation'];
-            $idAgentReparation = $_POST['idAgentReparation'];
-            $description = $_POST['description'];
-            $dateDebut = $_POST['dateDebut'];
-            $dateFinP = $_POST['dateFinP'];
-            $dateFinR = $_POST['dateFinR'];
-            $coutEstime = $_POST['coutEstime'];
-            $etatR = $_POST['etatR'];
-
-            $reparation = new Reparation($idAgentReparation, $description, $dateDebut, $dateFinP, $dateFinR, $coutEstime, $etatR);
-            $reparation->setIdReparation($idReparation);
-            if ($reparation->update()) {
-                echo "<div class='alert alert-success mt-3'>Réparation mise à jour avec succès!</div>";
-            } else {
-                echo "<div class='alert alert-danger mt-3'>Erreur lors de la mise à jour de la réparation.</div>";
-            }
-        }
-        ?>
-   </div>
-     </div>
-     </div>
-</section>
+        </div>
+    </section>
 </div>
-    <?php include('../admin/includes/footer_user.php') ?>
+
+<?php
+    } else {
+        echo "<p>Réparation non trouvée</p>";
+    }
+} else {
+    echo "<p>ID de réparation non fourni</p>";
+}
+include('../admin/includes/footer_user.php');
+?>
