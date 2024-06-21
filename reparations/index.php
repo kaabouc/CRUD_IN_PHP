@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Réparations</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
 <?php
 session_start();
 
@@ -15,10 +24,12 @@ include_once 'Reparation.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['changeEtat'])) {
     $idReparation = $_POST['idReparation'];
     $nouvelEtat = $_POST['nouvelEtat'];
+    $dateFinR = $_POST['dateFinR'];
 
     $reparation = Reparation::getReparationById($idReparation);
     if ($reparation) {
         $reparation->setEtatR($nouvelEtat);
+        $reparation->setDateFinR($dateFinR);
         $reparation->update();
     }
 }
@@ -71,8 +82,8 @@ $reparations = Reparation::getAllReparations();
                                     <?php if ($userType == 'admin' || $userType == 'agent') { ?>
                                         <td><a href="update.php?id=<?php echo $reparation->getIdReparation(); ?>" class="btn btn-primary">Modifier</a></td>
                                         <td><a href="delete.php?id=<?php echo $reparation->getIdReparation(); ?>" class="btn btn-danger">Supprimer</a></td>
-                                        <?php } ?>
-                                        <?php if ($userType == 'client') { ?>
+                                    <?php } ?>
+                                    <?php if ($userType == 'client') { ?>
                                         <td>
                                             <form method="post" style="display:inline;">
                                                 <input type="hidden" name="idReparation" value="<?php echo $reparation->getIdReparation(); ?>">
@@ -81,14 +92,9 @@ $reparations = Reparation::getAllReparations();
                                             </form>
                                         </td>
                                         <td>
-                                            <form method="post" style="display:inline;">
-                                                <input type="hidden" name="idReparation" value="<?php echo $reparation->getIdReparation(); ?>">
-                                                <input type="hidden" name="nouvelEtat" value="annulé">
-                                                <button type="submit" name="changeEtat" class="btn btn-warning">Annuler</button>
-                                            </form>
+                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#annulerModal" data-id="<?php echo $reparation->getIdReparation(); ?>">Annuler</button>
                                         </td>
-                                        <?php } ?>
-                                    
+                                    <?php } ?>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -99,4 +105,47 @@ $reparations = Reparation::getAllReparations();
     </section>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="annulerModal" tabindex="-1" role="dialog" aria-labelledby="annulerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="annulerModalLabel">Annuler Réparation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="idReparation" id="idReparationModal">
+                    <input type="hidden" name="nouvelEtat" value="annulé">
+                    <div class="form-group">
+                        <label for="dateFinR">Date de fin réelle</label>
+                        <input type="date" name="dateFinR" id="dateFinRModal" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="submit" name="changeEtat" class="btn btn-warning">Confirmer Annulation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <?php include('../admin/includes/footer_user.php') ?>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $('#annulerModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var idReparation = button.data('id'); // Extract info from data-* attributes
+        var modal = $(this);
+        modal.find('#idReparationModal').val(idReparation);
+    });
+</script>
+</body>
+</html>
