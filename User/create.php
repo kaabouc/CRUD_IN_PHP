@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idUtilisateur = $user->getIdUtilisateur();
 
     header("Location: index.php");
+    
     exit();
 }
 ?>

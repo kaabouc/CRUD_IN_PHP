@@ -336,9 +336,22 @@ class User {
         return $admins;
     }
     
+    public static function getUserByEmail($email) {
+        global $conn;
+
+        $sql = "SELECT * FROM Utilisateur WHERE Email = '$email'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $user = new User($row['NomUtilisateur'], $row['PrenomUtilisateur'], $row['Email'], $row['Tel'], $row['MotDePasse']);
+            $user->setIdUtilisateur($row['IdUtilisateur']);
+            return $user;
+        } else {
+            return null;
+        }
+    }
     
 }
-
-    
 
 ?>
