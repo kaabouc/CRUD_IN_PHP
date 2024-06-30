@@ -14,6 +14,7 @@ class Administrateur {
         return $this->idAdministrateur;
     }
 
+
     public function setIdAdministrateur($idAdministrateur) {
         $this->idAdministrateur = $idAdministrateur;
     }

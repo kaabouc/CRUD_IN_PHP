@@ -67,7 +67,7 @@ include('../admin/includes/header_user.php') ?>
                         echo "<td>" . $userInfo->getTel() . "</td>";
                 
                         $isActive = $userInfo->isActive();
-                        echo "<td>" . ($isActive ? "<span class='badge badge-success'>Actif</span>" : "<span class='badge badge-secondary'>Inactif</span>") . "</td>";
+                        echo "<td>" . ($isActive ? "<span class='badge badge-success'>En service</span>" : "<span class='badge badge-secondary'>Hors service</span>") . "</td>";
                         if ($userType == 'admin'  ) { 
 
                         echo "<td>

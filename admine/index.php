@@ -66,7 +66,7 @@ echo' <a href="create.php" class="btn btn-primary mb-3">Ajouter un admin</a>';
                         echo "<td>" . $userInfo->getPrenomUtilisateur() . "</td>";
                         echo "<td>" . $userInfo->getEmail() . "</td>";
                         echo "<td>" . $userInfo->getTel() . "</td>";
-                        echo "<td >" . $user->getDateDernConnex() . "</td>";
+                        echo "<td   >" . $user->getDateDernConnex() . "</td>";
                        
                         if ($userType == 'admin'  ) { 
 

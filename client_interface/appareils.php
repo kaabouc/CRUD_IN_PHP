@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<?php include('../admin/includes/navbar.php') ?>
+
 <?php
 session_start();
 

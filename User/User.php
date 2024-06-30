@@ -202,6 +202,7 @@ class User {
 
         return $users;
     }
+    
 
     public static function login($email, $password) {
         global $conn;
@@ -230,7 +231,7 @@ class User {
                     return array('type' => 'admin', 'id' => $idUtilisateur);
                 } elseif ($agentResult->num_rows > 0) {
                     // Utilisateur est un agent de réparation
-                    $conn->query("UPDATE AgentRéparation SET EtatAgent = 'actif' WHERE IdUtilisateur = '$idUtilisateur'");
+                    $conn->query("UPDATE AgentRéparation SET EtatAgent = 'En service' WHERE IdUtilisateur = '$idUtilisateur'");
                     return array('type' => 'agent', 'id' => $idUtilisateur);
                 } else {
                     // Erreur: type d'utilisateur non reconnu
@@ -257,7 +258,7 @@ class User {
             // Par exemple, supposons qu'il existe un champ `EtatAgent` dans la table `AgentRéparation`
             $agentRow = $agentResult->fetch_assoc();
             $agentStatus = $agentRow['EtatAgent'];
-            return $agentStatus === 'actif';
+            return $agentStatus === 'En service';
         } else {
             // L'utilisateur n'est pas un agent, vérifier s'il est client
             $clientQuery = "SELECT * FROM Client WHERE IdUtilisateur = '$this->idUtilisateur'";

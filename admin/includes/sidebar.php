@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
-    header("Location: ../login.php");
-    exit;
+  header("Location: ../login.php");
+  exit;
 }
 $userType = $_SESSION['userType'];
 
@@ -10,45 +10,53 @@ $userType = $_SESSION['userType'];
 
 ?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="" class="brand-link">
-      <img src="../../img/port.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">G_INFRACTION</span>
-    </a>
+  <!-- Brand Logo -->
+  <a href="" class="brand-link">
+    <img src="../../img/port.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light">G_INFRACTION</span>
+  </a>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-    
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
+  <!-- Sidebar -->
+  <div class="sidebar">
+
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="../pages/index.php" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
+        <li class="nav-item">
+          <a href="../pages/index.php" class="nav-link active">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
               Panneau de contrôle
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../../User/index.php" class="nav-link">
+            </p>
+          </a>
+        </li>
+        <?php if ($userType == 'admin'  ) { 
+
+echo '  
+        <li class="nav-item">
+          <a href="../../User/index.php" class="nav-link">
             <i class="fas fa-car"></i>
-              <p>
-                Utilisateurs
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../../Client/index.php" class="nav-link">
+            <p>
+              Utilisateurs
+              <span class="right badge badge-danger">New</span>
+            </p>
+          </a>
+        </li>
+        ';
+        } ?>
+        <li class="nav-item">
+          <a href="../../Client/index.php" class="nav-link">
             <i class="fas fa-car"></i>
-              <p>
-                Client
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
+            <p>
+              Client
+              <span class="right badge badge-danger">New</span>
+            </p>
+          </a>
+        </li>
+        <?php if ($userType == 'admin') {
+
+          echo '
           <li class="nav-item">
             <a href="../../agent/index.php" class="nav-link">
             <i class="fas fa-car"></i>
@@ -58,9 +66,7 @@ $userType = $_SESSION['userType'];
               </p>
             </a>
           </li>
-          <?php if ($userType == 'admin'  ) { 
-
-         echo ' <li class="nav-item">
+           <li class="nav-item">
             <a href="../../admine/index.php" class="nav-link">
             <i class="fas fa-car"></i>
               <p>
@@ -70,55 +76,55 @@ $userType = $_SESSION['userType'];
             </a>
           </li>';
         } ?>
-          <li class="nav-item">
-            <a href="../../Appareil/index.php" class="nav-link">
+        <li class="nav-item">
+          <a href="../../Appareil/index.php" class="nav-link">
             <i class="fas fa-exclamation-triangle"></i>
-              <p>
-                Appareil 
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-          
-          <li class="nav-item">
-            <a href="../../Reparations/index.php" class="nav-link">
+            <p>
+              Appareil
+              <span class="right badge badge-danger">New</span>
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="../../Reparations/index.php" class="nav-link">
             <i class="fas fa-shield-alt"></i>
-              <p>
-                Reparations
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../../piecerechange/index.php" class="nav-link">
-             <i class="fas fa-sticky-note"></i>
-              <p>
-                Piece de rechange  
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../../Reglement/index.php" class="nav-link">
-             <i class="fas fa-sticky-note"></i>
-              <p>
-                Reglement 
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../../DetailsCommande/index.php" class="nav-link">
-             <i class="fas fa-sticky-note"></i>
-              <p>
-                Commande  Piece
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+            <p>
+              Reparations
+              <span class="right badge badge-danger">New</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="../../piecerechange/index.php" class="nav-link">
+            <i class="fas fa-sticky-note"></i>
+            <p>
+              Piece de rechange
+              <span class="right badge badge-danger">New</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="../../Reglement/index.php" class="nav-link">
+            <i class="fas fa-sticky-note"></i>
+            <p>
+              Reglement
+              <span class="right badge badge-danger">New</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="../../DetailsCommande/index.php" class="nav-link">
+            <i class="fas fa-sticky-note"></i>
+            <p>
+              Commande Piece
+              <span class="right badge badge-danger">New</span>
+            </p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

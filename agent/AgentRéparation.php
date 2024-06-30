@@ -11,6 +11,31 @@ class AgentRéparation {
         $this->idUtilisateur = $idUtilisateur;
         $this->etatAgent = $etatAgent;
     }
+    public function updateEtat($newEtat) {
+        global $conn;
+
+        $sql = "UPDATE AgentRéparation SET etatAgent = ? WHERE idUtilisateur = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('si', $newEtat, $this->idUtilisateur);
+
+        return $stmt->execute();
+    }
+
+    public static function getByUtilisateurId($idUtilisateur) {
+        global $conn;
+
+        $sql = "SELECT * FROM AgentRéparation WHERE idUtilisateur = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $idUtilisateur);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($row = $result->fetch_assoc()) {
+            return new self($row['idUtilisateur'], $row['etatAgent']);
+        }
+
+        return null;
+    }
 
     public function getIdAgentRéparation() {
         return $this->idAgentRéparation;
