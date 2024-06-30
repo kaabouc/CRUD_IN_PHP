@@ -7,7 +7,6 @@ if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
 }
 $userType = $_SESSION['userType'];
 
-include('../admin/includes/header_user.php');
 include_once '../config.php';
 include_once 'Reparation.php';
 include_once '../appareil/Appareil.php';
@@ -32,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $appareils = Appareil::getAllAppareils();
 $agentrepartion = AgentRéparation::getAllAgentsRéparation();
-
+include('../admin/includes/header_user.php') 
 ?>
 
 <div class="content-wrapper">

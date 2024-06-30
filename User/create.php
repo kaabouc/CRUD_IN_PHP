@@ -1,4 +1,3 @@
-<?php include('../admin/includes/header_user.php') ?>
 
 <?php 
 include_once '../config.php';
@@ -11,6 +10,7 @@ if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
     header("Location: ../login.php");
     exit;
 }
+
 
 $userType = $_SESSION['userType'];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -30,6 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
 }
 ?>
+<?php include('../admin/includes/header_user.php') ?>
+
 <div class="content-wrapper">
 <section class="content">
       <div class="container-fluid">

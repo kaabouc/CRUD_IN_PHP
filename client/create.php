@@ -7,7 +7,7 @@ if (!isset($_SESSION['idLogin']) || !isset($_SESSION['userType'])) {
 }
 $userType = $_SESSION['userType'];
 
-include('../admin/includes/header_user.php') ?>
+?>
 
 <?php 
 include_once '../config.php';
@@ -30,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: index.php");
     exit();
 }
+include('../admin/includes/header_user.php') 
 ?>
 <div class="content-wrapper">
 <section class="content">
