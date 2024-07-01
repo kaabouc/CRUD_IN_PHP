@@ -69,12 +69,39 @@ class Administrateur {
             while($row = $result->fetch_assoc()) {
                 $administrateur = new Administrateur($row['IdUtilisateur']);
                 $administrateur->setIdAdministrateur($row['IdAdministrateur']);
+
                 $administrateurs[] = $administrateur;
             }
         }
 
         return $administrateurs;
     }
+    public static function getAllAdmins() {
+        global $conn;
+    
+        $sql = "SELECT u.*, a.dateDernConnex FROM Utilisateur u 
+                INNER JOIN Administrateur a ON u.IdUtilisateur = a.IdUtilisateur";
+        $result = $conn->query($sql);
+    
+        $admins = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $admin = new User(
+                    $row['IdUtilisateur'],
+                    $row['NomUtilisateur'],
+                    $row['PrenomUtilisateur'],
+                    $row['Email'],
+                    $row['Tel'],
+                    $row['MotDePasse'],
+                    $row['dateDernConnex']
+                );
+                $admins[] = $admin;
+            }
+        }
+    
+        return $admins;
+    }
+    
 
     public static function getAdministrateurById($idAdministrateur) {
         global $conn;

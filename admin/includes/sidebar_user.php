@@ -35,29 +35,26 @@ $userType = $_SESSION['userType'];
 
       echo' <li class="nav-item">
           <a href="../../User/index.php" class="nav-link">
-            <i class="fas fa-car"></i>
+            <i class="fas fa-sticky-note"></i>
             <p>
               Utilisateurs
               <span class="right badge badge-danger">New</span>
             </p>
           </a>
         </li>
-        ';
-        } ?>
+       
         <li class="nav-item">
           <a href="../../Client/index.php" class="nav-link">
-            <i class="fas fa-car"></i>
+            <i class="fas fa-sticky-note"></i>
             <p>
               Client
               <span class="right badge badge-danger">New</span>
             </p>
           </a>
         </li>
-        <?php if ($userType == 'admin') {
-
-          echo '<li class="nav-item">
+        <li class="nav-item">
             <a href="../../agent/index.php" class="nav-link">
-            <i class="fas fa-car"></i>
+            <i class="fas fa-sticky-note"></i>
               <p>
                 Agent Reparations
                 <span class="right badge badge-danger">New</span>
@@ -66,7 +63,7 @@ $userType = $_SESSION['userType'];
           </li>
            <li class="nav-item">
             <a href="../../admine/index.php" class="nav-link">
-            <i class="fas fa-car"></i>
+            <i class="fas fa-sticky-note"></i>
               <p>
                   Admin
                 <span class="right badge badge-danger">New</span>
@@ -76,7 +73,7 @@ $userType = $_SESSION['userType'];
         } ?>
         <li class="nav-item">
           <a href="../../Appareil/index.php" class="nav-link">
-            <i class="fas fa-exclamation-triangle"></i>
+            <i class="fas fa-sticky-note"></i>
             <p>
               Appareil
               <span class="right badge badge-danger">New</span>
@@ -101,6 +98,9 @@ $userType = $_SESSION['userType'];
             </p>
           </a>
         </li>
+        <?php if ($userType == 'admin'  ) { 
+
+echo '  
         <li class="nav-item">
           <a href="../../Reglement/index.php" class="nav-link">
             <i class="fas fa-sticky-note"></i>
@@ -110,6 +110,8 @@ $userType = $_SESSION['userType'];
             </p>
           </a>
         </li>
+        ';
+        } ?>
         <li class="nav-item">
           <a href="../../DetailsCommande/index.php" class="nav-link">
             <i class="fas fa-sticky-note"></i>

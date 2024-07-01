@@ -49,6 +49,9 @@ include "../../config.php";
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
+        <?php if ($userType == 'admin'  ) { 
+
+echo '  
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
@@ -63,6 +66,7 @@ include "../../config.php";
               <a href="../../Client/index.php" class="small-box-footer">EN SAVOIR PLUS <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+         
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -78,6 +82,8 @@ include "../../config.php";
               <a href="../../agent/index.php" class="small-box-footer">EN SAVOIR PLUS <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+           ';
+        } ?>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
