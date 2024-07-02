@@ -71,6 +71,9 @@ $userType = $_SESSION['userType'];
             </a>
           </li>';
         } ?>
+         <?php if ($userType == 'agent' ) { 
+
+echo'
         <li class="nav-item">
           <a href="../../Appareil/index.php" class="nav-link">
             <i class="fas fa-sticky-note"></i>
@@ -98,9 +101,7 @@ $userType = $_SESSION['userType'];
             </p>
           </a>
         </li>
-        <?php if ($userType == 'admin'  ) { 
-
-echo '  
+       
         <li class="nav-item">
           <a href="../../Reglement/index.php" class="nav-link">
             <i class="fas fa-sticky-note"></i>
@@ -110,8 +111,7 @@ echo '
             </p>
           </a>
         </li>
-        ';
-        } ?>
+       
         <li class="nav-item">
           <a href="../../DetailsCommande/index.php" class="nav-link">
             <i class="fas fa-sticky-note"></i>
@@ -121,6 +121,8 @@ echo '
             </p>
           </a>
         </li>
+        ';
+        } ?>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

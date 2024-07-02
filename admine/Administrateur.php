@@ -1,5 +1,4 @@
 <?php
-include_once 'config.php';
 include_once '../User/User.php';
 class Administrateur {
     private $idAdministrateur;
